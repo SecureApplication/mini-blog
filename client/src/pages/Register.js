@@ -21,13 +21,26 @@ function Register() {
   };
 
   return (
-    <div>
-      <div className="registerContainer">
-        <label>Username:</label>
-        <input type="text" placeholder="Enter username" id="username" />
-        <label>Password:</label>
-        {/* Data Exposure, password exposed */}
-        <input type="text" placeholder="Enter password" id="password" />
+    <div className="App">
+      <div className="registerLoginContainer">
+        <label for="uname">Username</label>
+        <input
+          className="usernameInput"
+          type="text"
+          placeholder="Enter Username"
+          name="uname"
+          id="username"
+          required
+        />
+        <label for="psw">Password</label>
+        <input
+          className="passwordInput"
+          type="password"
+          placeholder="Enter Password"
+          name="psw"
+          id="password"
+          required
+        />
         <button
           onClick={() =>
             registerUser(
@@ -38,6 +51,13 @@ function Register() {
         >
           Register
         </button>
+      </div>
+      <br />
+      <div>
+        <h3>Sensitive Data Exposure here!</h3>
+        <p>
+          Password field does not hide characters enetered by the user :{"("}
+        </p>
       </div>
     </div>
   );
