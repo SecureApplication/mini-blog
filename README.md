@@ -27,19 +27,26 @@ Student number: x19238568
 To run this full stack web application you will need to:
 
 1. Run project `server`
-2. Run project `client`
-3. Follow the steps below.
+2. Run project `client` <br />
+   Follow the steps below.
 
 # Run server steps
 
 1. Navigate to the `server` directory into the mini-blog project using the `cd` command.
 2. Update the credentials in `connection` in `config/database.js` to connect to mysql database.
 3. Run the `npm start` to start the production server.
-4. Access the website via localhost address by typing `localhost:5000` in a browser. (optional)
-5. Note: the server will only be used to make API calls there is no need to access localhost address in the browser.
+4. Access the website via localhost address by typing `localhost:5000` in a browser. (optional) <br />
+   Note: the server will only be used to make API calls there is no need to access localhost address in the browser.
 
 # Run client steps
 
 1. Navigate to the `client` directory into the mini-blog project using the `cd` command.
 2. Run the `npm start` to start the production server.
 3. The command `npm start` will automatically open the localhost website address `localhost:3000`.
+
+# Branches
+
+1. Check existent branches by running command `git branch`.
+2. Switch branches by running command `git checkout name_of_the_branch`. <br />
+   Note: The `main` and `insecure` branches contain vulnerabilities. Only `insecure` branch has vulnerabilities fix. <br />
+   Note: For a better experience keep `server` and `client` running while switching branches.
