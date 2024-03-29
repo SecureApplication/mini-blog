@@ -4,7 +4,7 @@ Mini Blog Web Application (Insecure)
 
 # Student details
 
-Name: Yago Masanobu Taira
+Name: Yago Masanobu Taira <br />
 Student number: x19238568
 
 # Project Dependencies
