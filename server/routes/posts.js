@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const { connection } = require("../config/database");
+const sanitizeHtml = require("sanitize-html");
+
+const { validateToken } = require("../middlewares/AuthMiddleware");
 
 // Routes
-router.get("/", (req, res) => {
-  // Vulnerable to SQL Injection & Stored XSS
+router.get("/", validateToken, (req, res) => {
   const query = "SELECT * FROM posts";
 
   connection.query(query, (err, result) => {
@@ -13,29 +15,17 @@ router.get("/", (req, res) => {
   });
 });
 
-router.post("/", (req, res) => {
-  const title = req.body.title;
-  const content = req.body.content;
-  const username = req.body.username;
+router.post("/", validateToken, (req, res) => {
+  const title = sanitizeHtml(req.body.title); // Sanitizes input
+  const content = sanitizeHtml(req.body.content); // Sanitizes input
+  const username = sanitizeHtml(req.body.username); // Sanitizes input
 
-  // Vulnerable to SQL Injection & Stored XSS
-  const query = `INSERT INTO posts (title, content, username) VALUES ('${title}', '${content}', '${username}')`;
+  const query = "INSERT INTO posts (title, content, username) VALUES (?, ?, ?)";
+  const parameters = [title, content, username]; // Data passed safely
 
-  connection.query(query, (err, results) => {
+  connection.query(query, parameters, (err, results) => {
     if (err) throw err;
     res.send("Post created");
-  });
-});
-
-router.get("/:id", (req, res) => {
-  const postId = req.params.id;
-
-  // Vulnerable to SQL Injection & Stored XSS
-  const query = `SELECT * FROM posts WHERE id = '${postId}'`;
-
-  connection.query(query, (err, results) => {
-    if (err) throw err;
-    res.json(results);
   });
 });
 
