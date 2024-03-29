@@ -1,13 +1,11 @@
-require("dotenv").config();
-
 const mysql = require("mysql2");
 
-// Secure Connection credentials
+// Insecure Database Connection (Sensitive Data Exposure)
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: "sql8.freemysqlhosting.net",
+  user: "sql8693543",
+  password: "b5pQ9aCQW3",
+  database: "sql8693543",
 });
 
 // Check database connection
