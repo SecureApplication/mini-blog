@@ -1,6 +1,6 @@
 # Project name
 
-Mini Blog We Application
+Mini Blog We Application (Secure)
 
 # Student details
 
@@ -28,7 +28,7 @@ To run this full stack web application you will need to:
 
 1. Run project `server`
 2. Run project `client`
-   Follow the steps below.
+3. Follow the steps below.
 
 # Run server steps
 
@@ -36,7 +36,7 @@ To run this full stack web application you will need to:
 2. Update the credentials in `connection` in `config/database.js` to connect to mysql database.
 3. Run the `npm start` to start the production server.
 4. Access the website via localhost address by typing `localhost:5000` in a browser. (optional)
-   Note: the server will only be used to make API calls there is no need to access localhost address in the browser.
+5. Note: the server will only be used to make API calls there is no need to access localhost address in the browser.
 
 # Run client steps
 
