@@ -1,8 +1,9 @@
 .App {
-  width: 100%;
+  width: 100vw;
   height: auto;
   display: flex;
   align-items: center;
+  padding-top: 40px;
   flex-direction: column;
 }
 
@@ -40,17 +41,7 @@ body {
   box-sizing: border-box;
 }
 
-.createPostForm button {
-  background-color: #04aa6d;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
-
-.formContainer button {
+button {
   background-color: #04aa6d;
   color: white;
   padding: 14px 20px;
@@ -103,49 +94,4 @@ body {
   color: white;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-}
-
-/* NAVBAR */
-
-.navbar {
-  width: 100%;
-  height: 70px;
-  background-color: dodgerblue;
-  display: flex;
-  align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.navbar .links {
-  flex: 50%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.navbar .loggedInContainer {
-  flex: 50%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-.navbar a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: white;
-}
-
-.navbar button {
-  width: 100px;
-  height: 40px;
-  cursor: pointer;
-  margin-right: 10px;
-  background-color: white;
-}
-
-.navbar h1 {
-  text-align: right;
-  margin-right: 10px;
-  color: white;
-  font-weight: lighter;
 }

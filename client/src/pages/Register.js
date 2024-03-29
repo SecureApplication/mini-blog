@@ -1,29 +1,14 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
   let navigate = useNavigate();
 
-  const initialValues = {
-    username: "",
-    password: "",
-  };
-
-  const validationSchema = Yup.object().shape({
-    username: Yup.string().min(3).max(15).required("required field"),
-    password: Yup.string().min(4).max(20).required("required field"),
-  });
-
-  const onSubmit = (data) => {
+  const registerUser = (username, password) => {
     fetch("http://localhost:5000/users/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: data.username,
-        password: data.password,
-      }),
+      body: JSON.stringify({ username, password }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -37,34 +22,42 @@ function Register() {
 
   return (
     <div className="App">
-      <h1>Register</h1>
-      <div>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={onSubmit}
-          validationSchema={validationSchema}
+      <div className="registerLoginContainer">
+        <label for="uname">Username</label>
+        <input
+          className="usernameInput"
+          type="text"
+          placeholder="Enter Username"
+          name="uname"
+          id="username"
+          required
+        />
+        <label for="psw">Password</label>
+        <input
+          className="passwordInput"
+          type="password"
+          placeholder="Enter Password"
+          name="psw"
+          id="password"
+          required
+        />
+        <button
+          onClick={() =>
+            registerUser(
+              document.getElementById("username").value,
+              document.getElementById("password").value
+            )
+          }
         >
-          <Form className="formContainer">
-            <label>Username: </label>
-            <ErrorMessage name="username" component="span" />
-            <Field
-              className="usernameInput"
-              autoComplete="off"
-              name="username"
-              placeholder="Enter username"
-            />
-            <label>Password: </label>
-            <ErrorMessage name="password" component="span" />
-            <Field
-              className="passwordInput"
-              autoComplete="off"
-              type="password"
-              name="password"
-              placeholder="Enter password"
-            />
-            <button type="submit"> Register </button>
-          </Form>
-        </Formik>
+          Register
+        </button>
+      </div>
+      <br />
+      <div>
+        <h3>Sensitive Data Exposure here!</h3>
+        <p>
+          Password field does not hide characters enetered by the user :{"("}
+        </p>
       </div>
     </div>
   );
