@@ -1,6 +1,6 @@
 # Project name
 
-Mini Blog We Application (Secure)
+Mini Blog Web Application (Secure)
 
 # Student details
 
