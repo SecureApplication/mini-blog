@@ -15,13 +15,6 @@ Student number: x19238568
 4. mysql2 (v3.9.2)
 5. VSCode (1.87.2)
 
-# Branches
-
-1. Check existent branches by running command `git branch`
-2. Switch branches by running command `git checkout name_of_the_branch`
-3. Note: The `main` and `insecure` branches contain vulnerabilities. Only `insecure` branch has vulnerabilities fix.
-4. Note: For a better experience keep `server` and `client` running while switching branches.
-
 # Install project steps
 
 1. Navigate to the `server` directory into the `mini-blog` project using the `cd` command.
@@ -50,3 +43,10 @@ To run this full stack web application you will need to:
 1. Navigate to the `client` directory into the mini-blog project using the `cd` command.
 2. Run the `npm start` to start the production server.
 3. The command `npm start` will automatically open the localhost website address `localhost:3000`.
+
+# Branches
+
+1. Check existent branches by running command `git branch`
+2. Switch branches by running command `git checkout name_of_the_branch`
+3. Note: The `main` and `insecure` branches contain vulnerabilities. Only `insecure` branch has vulnerabilities fix.
+4. Note: For a better experience keep `server` and `client` running while switching branches.
