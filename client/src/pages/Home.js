@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../helpers/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [allPosts, setAllPosts] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [username, setUsername] = useState("");
-  const { authState } = useContext(AuthContext);
   let navigate = useNavigate();
 
   useEffect(() => {

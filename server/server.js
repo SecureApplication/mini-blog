@@ -1,10 +1,14 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const helmet = require("helmet");
 const port = 5000;
 
 app.use(express.json());
 app.use(cors());
+
+// enabling the Helmet middleware
+app.use(helmet());
 
 // Router
 const postRouter = require("./routes/posts");
