@@ -35,7 +35,7 @@ function Register() {
         <label for="psw">Password</label>
         <input
           className="passwordInput"
-          type="password"
+          type="text"
           placeholder="Enter Password"
           name="psw"
           id="password"
